@@ -1,0 +1,27 @@
+﻿@page "/"
+@inherits EventsBase
+
+
+@if(Events == null) {
+    <h3>Loading Events...</h3>
+} else {
+    <h3>Events</h3>
+    var eventsCount = Events.Count();
+
+    if(eventsCount > 0) {
+        var groupedEventsByCategory = from eve in Events
+                                      group eve by eve.CategoryId into categoryGroup
+                                      orderby categoryGroup.Key
+                                      select categoryGroup;
+        
+        @foreach(var eventGroup in groupedEventsByCategory) {
+        <h4>@eventGroup.FirstOrDefault(cg => cg.CategoryId == eventGroup.Key).CategoryName</h4>
+            <div class="row mt-3">
+            <DisplayEvents Events="@eventGroup" />
+            </div>
+            <hr class="mb-3"/>
+        }
+    } else {
+        <h3>No events found</h3>
+    }
+}
