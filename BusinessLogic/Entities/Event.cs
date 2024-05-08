@@ -7,6 +7,7 @@ namespace BusinessLogic.Entities
         public string Name { get; set; }
         public string Description { get; set; }
         public string Localization { get; set; }
+        public decimal Price { get; set; }
         public DateTime Date { get; set; }
         public int AvailableQty { get; set; }
         public int MaxCapacity { get; set; }

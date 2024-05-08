@@ -1,4 +1,5 @@
 ﻿using BusinessLogic.Dtos;
+using Frontend.Services;
 using Frontend.Services.Contracts;
 using Microsoft.AspNetCore.Components;
 
@@ -11,6 +12,10 @@ public class EventDetailsBase : ComponentBase
     
     [Inject]
     public IEventService EventService { get; set; }
+    [Inject]
+    public IShoppingCartService ShoppingCartService { get; set; }
+    [Inject]
+    public NavigationManager NavigationManager { get; set; }
     
     public EventDto Event { get; set; }
     
@@ -25,6 +30,20 @@ public class EventDetailsBase : ComponentBase
         catch (Exception e)
         {
             ErrorMessage = e.Message;
+        }
+    }
+
+    protected async Task AddToCart_Click(CartItemToAddDto cartItemToAddDto)
+    {
+        try
+        {
+            var cartItemDto = await ShoppingCartService.AddItem(cartItemToAddDto);
+            NavigationManager.NavigateTo("/ShoppingCart");
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
         }
     }
 }

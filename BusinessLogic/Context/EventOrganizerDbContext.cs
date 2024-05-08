@@ -68,6 +68,19 @@ namespace BusinessLogic.Context
                     Name = "Music"
                 }
             );
+            
+            modelBuilder.Entity<Cart>().HasData(new Cart
+            {
+                Id = 1,
+                UserId = 1
+
+            });
+            modelBuilder.Entity<Cart>().HasData(new Cart
+            {
+                Id = 2,
+                UserId = 2
+
+            });
 
         }
     }

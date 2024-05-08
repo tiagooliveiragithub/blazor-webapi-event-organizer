@@ -18,6 +18,13 @@ else
             <p class="mb-4">@Event.Description</p>
             <p class="mb-4">@Event.Localization</p>
             <p class="mb-4">Number of Ticket (@Event.MaxCapacity) </p>
+            <button class="btn btn-success" @onclick="() => (AddToCart_Click(new CartItemToAddDto{ 
+                                                CartId = HardCoded.CartId,
+                                                EventId = Event.Id,
+                                                Qty = 1
+                                            }))">
+                <b>Add to Cart</b>
+            </button>
         </div>
     </div>
 }

@@ -16,6 +16,7 @@ namespace Frontend
             builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri("https://localhost:7185/") });
             
             builder.Services.AddScoped<IEventService, EventService>();
+            builder.Services.AddScoped<IShoppingCartService, ShoppingCartService>();
 
             await builder.Build().RunAsync();
         }

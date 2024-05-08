@@ -23,6 +23,7 @@ namespace Backend
                 options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
             builder.Services.AddScoped<IEventRepository, EventRepository>();
+            builder.Services.AddScoped<IShoppingCartRepository, ShoppingCartRepository>();
 
             var app = builder.Build();
 
