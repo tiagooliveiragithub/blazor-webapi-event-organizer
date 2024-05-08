@@ -1,12 +1,7 @@
 ﻿using BusinessLogic.Entities;
 using EventOrganize.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace BusinessLogic.Repositories.Contracts
+namespace Backend.Repositories.Contracts
 {
     public interface IEventRepository
     {

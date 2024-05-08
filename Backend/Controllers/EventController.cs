@@ -1,6 +1,5 @@
-﻿using BusinessLogic.Dtos;
-using BusinessLogic.Repositories.Contracts;
-using Microsoft.AspNetCore.Http;
+﻿using Backend.Repositories.Contracts;
+using BusinessLogic.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Backend.Controllers

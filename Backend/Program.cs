@@ -1,7 +1,6 @@
-
+using Backend.Repositories;
+using Backend.Repositories.Contracts;
 using BusinessLogic.Context;
-using BusinessLogic.Repositories;
-using BusinessLogic.Repositories.Contracts;
 using Microsoft.EntityFrameworkCore;
 
 namespace Backend

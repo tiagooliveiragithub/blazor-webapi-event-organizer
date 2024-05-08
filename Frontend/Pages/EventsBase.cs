@@ -16,5 +16,19 @@ namespace Frontend.Pages
             Events = await EventService.GetEvents();
         }
 
+        protected IOrderedEnumerable<IGrouping<int?, EventDto>> GetGroupedEventsByCategory()
+        {
+            return from eve in Events
+                   group eve by eve.CategoryId into categoryGroup
+                   orderby categoryGroup.Key
+                   select categoryGroup;
+        }
+
+        protected string GetCategoryName(IGrouping<int?, EventDto> groupedEventsDtos)
+        {
+            return groupedEventsDtos.FirstOrDefault(eve => eve.CategoryId == groupedEventsDtos.Key)
+                .CategoryName;
+        }
+
     }
 }
