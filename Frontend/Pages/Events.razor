@@ -3,7 +3,7 @@
 
 
 @if(Events == null) {
-    <h3>Loading Events...</h3>
+    <LoadingSpinner/>
 } else {
     <h3>Events</h3>
     var eventsCount = Events.Count();

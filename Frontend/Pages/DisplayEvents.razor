@@ -3,13 +3,12 @@
 @foreach (var eventItem in Events)
 {
     <div class="col-md-3">
+        
         <div class="card">
             <div class="card-body">
-                <h5 class="card-title">@eventItem.Name</h5>
-                <p class="card-text">@eventItem.Description</p>
+                <a href="/EventDetails/@eventItem.Id"><h5 class="card-title">@eventItem.Name</h5></a>
                 <p class="card-footer">Local: @eventItem.Localization</p>
                 <p class="card-footer">@eventItem.Date</p>
-                <a href="/" class="btn btn-primary">View</a>
             </div>
         </div>
     </div>

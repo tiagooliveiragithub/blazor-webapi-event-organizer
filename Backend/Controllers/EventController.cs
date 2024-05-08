@@ -40,6 +40,32 @@ namespace Backend.Controllers
             }
             
         }
+        
+        [HttpGet("{id:int}")]
+        public async Task<ActionResult<EventDto>> GetEvent(int id)
+        {
+            try
+            {
+                var eve = await this.eventRepository.GetEvent(id);
+
+                if(eve == null)
+                {
+                    return BadRequest();
+                }
+
+                var eventCategory = await this.eventRepository.GetCategory(eve.CategoryId);
+                var eventDto = eve.ConvertToDto(eventCategory);
+                
+                return Ok(eventDto);
+                
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error retrieving data from the database.");
+            }
+            
+        }
 
 
     }

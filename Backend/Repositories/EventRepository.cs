@@ -8,6 +8,20 @@ namespace Backend.Repositories
 {
     public class EventRepository(EventOrganizerDbContext eventOrganizerDbContext) : IEventRepository
     {
+        
+        public async Task<IEnumerable<Event>> GetEvents()
+        {
+            var events = await eventOrganizerDbContext.Events.ToListAsync();
+
+            return events;
+        }
+        
+        public async Task<Event> GetEvent(int id)
+        {
+            var eve = await eventOrganizerDbContext.Events.FindAsync(id);
+            return eve;
+        }
+        
         public async Task<IEnumerable<Category>> GetCategories()
         {
             var categories = await eventOrganizerDbContext.Categories.ToListAsync();
@@ -15,16 +29,10 @@ namespace Backend.Repositories
             return categories;
         }
 
-        public Task<IEnumerable<Category>> GetCategory(int id)
+        public async Task<Category> GetCategory(int id)
         {
-            throw new NotImplementedException();
-        }
-
-        public async Task<IEnumerable<Event>> GetEvents()
-        {
-            var events = await eventOrganizerDbContext.Events.ToListAsync();
-
-            return events;
+            var category = await eventOrganizerDbContext.Categories.FindAsync(id);
+            return category;
         }
 
         public Task<IEnumerable<Ticket>> GetTickets(int eventId)

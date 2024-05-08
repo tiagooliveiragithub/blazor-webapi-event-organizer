@@ -30,5 +30,24 @@ namespace BusinessLogic.Dtos
                                    CategoryName = eventCategory.Name
                                }).ToList();
         }
+        
+        
+        public static EventDto ConvertToDto(this Event eve,
+            Category category)
+        {
+            return new EventDto
+            {
+                Id = eve.Id,
+                Name = eve.Name,
+                Date = eve.Date,
+                Hour = eve.Hour,
+                Localization = eve.Localization,
+                Description = eve.Description,
+                MaxCapacity = eve.MaxCapacity,
+                OwnerId = eve.OwnerId,
+                CategoryId = eve.CategoryId,
+                CategoryName = category.Name
+            };
+        }
     }
 }
