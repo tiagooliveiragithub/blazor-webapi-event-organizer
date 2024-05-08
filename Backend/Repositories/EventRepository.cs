@@ -1,6 +1,5 @@
 ﻿using BusinessLogic.Context;
 using BusinessLogic.Entities;
-using EventOrganize.Models;
 using Microsoft.EntityFrameworkCore;
 using Backend.Repositories.Contracts;
 
@@ -22,22 +21,17 @@ namespace Backend.Repositories
             return eve;
         }
         
-        public async Task<IEnumerable<Category>> GetCategories()
+        public async Task<IEnumerable<EventCategory>> GetCategories()
         {
-            var categories = await eventOrganizerDbContext.Categories.ToListAsync();
+            var categories = await eventOrganizerDbContext.EventCategories.ToListAsync();
 
             return categories;
         }
 
-        public async Task<Category> GetCategory(int id)
+        public async Task<EventCategory> GetCategory(int id)
         {
-            var category = await eventOrganizerDbContext.Categories.FindAsync(id);
+            var category = await eventOrganizerDbContext.EventCategories.FindAsync(id);
             return category;
-        }
-
-        public Task<IEnumerable<Ticket>> GetTickets(int eventId)
-        {
-            throw new NotImplementedException();
         }
     }
 }

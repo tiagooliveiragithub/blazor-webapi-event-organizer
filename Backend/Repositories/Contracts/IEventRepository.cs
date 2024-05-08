@@ -1,5 +1,4 @@
 ﻿using BusinessLogic.Entities;
-using EventOrganize.Models;
 
 namespace Backend.Repositories.Contracts
 {
@@ -7,10 +6,7 @@ namespace Backend.Repositories.Contracts
     {
         Task<IEnumerable<Event>> GetEvents();
         Task<Event> GetEvent(int id);
-        Task<IEnumerable<Category>> GetCategories();
-        Task<Category> GetCategory(int id);
-        Task<IEnumerable<Ticket>> GetTickets(int eventId);
-        
-
+        Task<IEnumerable<EventCategory>> GetCategories();
+        Task<EventCategory> GetCategory(int id);
     }
 }

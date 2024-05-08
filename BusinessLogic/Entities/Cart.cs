@@ -1,7 +1,7 @@
 ﻿namespace BusinessLogic.Entities;
 
-public class User
+public class Cart
 {
     public int Id { get; set; }
-    public string Username { get; set; }
+    public int UserId { get; set; }
 }
