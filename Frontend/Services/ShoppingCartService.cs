@@ -1,4 +1,7 @@
 ﻿using System.Net.Http.Json;
+using System.Text;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using BusinessLogic.Dtos;
 using Frontend.Services.Contracts;
 
@@ -71,6 +74,28 @@ public class ShoppingCartService (HttpClient httpClient): IShoppingCartService
                 return await response.Content.ReadFromJsonAsync<CartItemDto>();
             }
             return default(CartItemDto);
+        }
+        catch (Exception e)
+        {
+            Console.WriteLine(e);
+            throw;
+        }
+    }
+
+    public async Task<CartItemDto> UpdateQty(CartItemQtyUpdateDto cartItemQtyUpdateDto)
+    {
+        try
+        {
+            var jsonRequest = JsonSerializer.Serialize(cartItemQtyUpdateDto);
+            var content = new StringContent(jsonRequest, Encoding.UTF8, "application/json-patch+json");
+
+            var response = await httpClient.PatchAsync($"api/ShoppingCart/{cartItemQtyUpdateDto.CartItemId}", content);
+
+            if (response.IsSuccessStatusCode)
+            {
+                return await response.Content.ReadFromJsonAsync<CartItemDto>();
+            }
+            return null;
         }
         catch (Exception e)
         {

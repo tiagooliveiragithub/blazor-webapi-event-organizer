@@ -12,7 +12,6 @@ public class ShoppingCartRepository(EventOrganizerDbContext eventOrganizerDbCont
     {
         return await eventOrganizerDbContext.CartsItems.AnyAsync(c => c.CartId == cartId &&
                                                                       c.EventId == eventId);
-
     }
     
     public async Task<CartItem> AddItem(CartItemToAddDto cartItemToAddDto)
@@ -38,11 +37,6 @@ public class ShoppingCartRepository(EventOrganizerDbContext eventOrganizerDbCont
 
         return null;
 
-    }
-
-    public Task<CartItem> UpdateQty(int id, CartItemQtyUpdateDto cartItemQtyUpdateDto)
-    {
-        throw new NotImplementedException();
     }
 
     public async Task<CartItem> DeleteItem(int id)
@@ -87,5 +81,19 @@ public class ShoppingCartRepository(EventOrganizerDbContext eventOrganizerDbCont
                 Qty = cardItem.Qty,
                 CartId = cardItem.CartId,
             }).ToListAsync();
+    }
+    
+    public async Task<CartItem> UpdateQty(int id, CartItemQtyUpdateDto cartItemQtyUpdateDto)
+    {
+        var item = await eventOrganizerDbContext.CartsItems.FindAsync(id);
+
+        if (item != null)
+        {
+            item.Qty = cartItemQtyUpdateDto.Qty;
+            await eventOrganizerDbContext.SaveChangesAsync();
+            return item;
+        }
+
+        return null;
     }
 }

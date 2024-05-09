@@ -1,4 +1,5 @@
 ﻿using Backend.Repositories.Contracts;
+using BusinessLogic.Context;
 using BusinessLogic.Dtos;
 using Microsoft.AspNetCore.Mvc;
 
@@ -118,5 +119,30 @@ public class ShoppingCartController(
         {
             return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
         }
+    }
+    
+    [HttpPatch("{id:int}")]
+    public async Task<ActionResult<CartItemDto>> UpdateQty(int id, CartItemQtyUpdateDto cartItemQtyUpdateDto)
+    {
+        try
+        {
+            var cartItem = await shoppingCartRepository.UpdateQty(id, cartItemQtyUpdateDto);
+            if (cartItem == null)
+            {
+                return NotFound();
+            }
+
+            var eve = await eventRepository.GetEvent(cartItem.EventId);
+
+            var cartItemDto = cartItem.ConvertToDto(eve);
+
+            return Ok(cartItemDto);
+
+        }
+        catch (Exception e)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+        }
+
     }
 }
