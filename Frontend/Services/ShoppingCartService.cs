@@ -103,4 +103,13 @@ public class ShoppingCartService (HttpClient httpClient): IShoppingCartService
             throw;
         }
     }
+
+    public event Action<int>? OnShoppingCartChanged;
+    public void RaiseEventOnShoppingCartChanged(int totalQty)
+    {
+        if (OnShoppingCartChanged != null)
+        {
+            OnShoppingCartChanged.Invoke(totalQty);
+        }
+    }
 }

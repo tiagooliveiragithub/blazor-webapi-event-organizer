@@ -8,12 +8,20 @@ namespace Frontend.Pages
     {
         [Inject]
         public IEventService EventService { get; set; }
+        
+        [Inject]
+        public IShoppingCartService ShoppingCartService { get; set; }
 
         public IEnumerable<EventDto> Events { get; set; }
 
         protected override async Task OnInitializedAsync()
         {
             Events = await EventService.GetEvents();
+
+            var shoppingCartItems = await ShoppingCartService.GetItems(HardCoded.UserId);
+            var totalQty = shoppingCartItems.Sum(i => i.Qty);
+            
+            ShoppingCartService.RaiseEventOnShoppingCartChanged(totalQty);
         }
 
         protected IOrderedEnumerable<IGrouping<int, EventDto>> GetGroupedEventsByCategory()
