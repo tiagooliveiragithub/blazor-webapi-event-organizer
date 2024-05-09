@@ -19,12 +19,12 @@ public class ShoppingCartRepository(EventOrganizerDbContext eventOrganizerDbCont
     {
         if (await CartItemExists(cartItemToAddDto.CartId, cartItemToAddDto.EventId) == false)
         {
-            var item = await (from product in eventOrganizerDbContext.Events
-                where product.Id == cartItemToAddDto.EventId
+            var item = await (from eve in eventOrganizerDbContext.Events
+                where eve.Id == cartItemToAddDto.EventId
                 select new CartItem
                 {
                     CartId = cartItemToAddDto.CartId,
-                    EventId = product.Id,
+                    EventId = eve.Id,
                     Qty = cartItemToAddDto.Qty
                 }).SingleOrDefaultAsync();
 
@@ -50,7 +50,7 @@ public class ShoppingCartRepository(EventOrganizerDbContext eventOrganizerDbCont
         throw new NotImplementedException();
     }
 
-    public async Task<CartItem> GetItem(int id)
+    public async Task<CartItem?> GetItem(int id)
     {
         return await (from cart in eventOrganizerDbContext.Carts
             join cartItem in eventOrganizerDbContext.CartsItems

@@ -42,8 +42,7 @@ public class ShoppingCartController(
         }
     }
 
-    [HttpGet]
-    [Route("{userId}/GetItem")]
+    [HttpGet("{id:int}")]
     public async Task<ActionResult<CartItemDto>> GetItem(int id)
     {
         try
@@ -59,7 +58,7 @@ public class ShoppingCartController(
                 return NotFound();
             }
             var cartItemDto = cartItem.ConvertToDto(eve);
-            return cartItemDto;
+            return Ok(cartItemDto);
         }
         catch (Exception e)
         {
