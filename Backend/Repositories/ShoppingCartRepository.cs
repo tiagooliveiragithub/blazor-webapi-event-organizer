@@ -45,9 +45,18 @@ public class ShoppingCartRepository(EventOrganizerDbContext eventOrganizerDbCont
         throw new NotImplementedException();
     }
 
-    public Task<CartItem> DeleteItem(int id)
+    public async Task<CartItem> DeleteItem(int id)
     {
-        throw new NotImplementedException();
+        var item = await eventOrganizerDbContext.CartsItems.FindAsync(id);
+
+        if (item != null)
+        {
+            eventOrganizerDbContext.Remove(item);
+            await eventOrganizerDbContext.SaveChangesAsync();
+        }
+            
+        return item;
+
     }
 
     public async Task<CartItem?> GetItem(int id)

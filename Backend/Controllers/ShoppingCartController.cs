@@ -91,4 +91,32 @@ public class ShoppingCartController(
             return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
         }
     }
+    
+    [HttpDelete("{id:int}")]
+    public async Task<ActionResult<CartItemDto>> DeleteItem(int id)
+    {
+        try
+        {
+            var cartItem = await shoppingCartRepository.DeleteItem(id);
+                
+            if (cartItem == null)
+            { 
+                return NotFound();
+            }
+
+            var eve = await eventRepository.GetEvent(cartItem.EventId);
+
+            if (eve == null)
+                return NotFound();
+
+            var cartItemDto = cartItem.ConvertToDto(eve);
+
+            return Ok(cartItemDto);
+
+        }
+        catch (Exception e)
+        {
+            return StatusCode(StatusCodes.Status500InternalServerError, e.Message);
+        }
+    }
 }
